@@ -58,5 +58,4 @@ RSpec.describe Mpesa::Config do
       end
     end
   end
-
 end

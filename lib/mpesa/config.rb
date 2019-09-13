@@ -57,6 +57,7 @@ module Mpesa
     # ```
     def configure
       yield configuration
+      configuration
     end
   end
 end

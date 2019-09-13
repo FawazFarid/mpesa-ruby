@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'mpesa-ruby'
 
+require 'webmock/rspec'
 require 'pry'
 
 RSpec.configure do |config|
@@ -14,3 +15,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+WebMock.disable_net_connect!(allow_localhost: true)
