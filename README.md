@@ -1,8 +1,8 @@
 # Mpesa
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mpesa`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+The Mpesa Ruby library provides access to the various APIs
+(https://developer.safaricom.co.ke/apis-explorer) M-PESA offers
+for developers working on applications written in Ruby.
 
 ## Installation
 
@@ -20,9 +20,25 @@ Or install it yourself as:
 
     $ gem install mpesa-ruby
 
-## Usage
+## Configuration
 
-TODO: Write usage instructions here
+The library needs to be configured with your M-PESA application's Consumer Key and Consumer Secret key which is
+available in your [M-PESA Apps Dashboard]('https://developer.safaricom.co.ke/user/me/apps'). Click on your App and navigate
+to the keys tab.
+
+Set `consumer_key` and `consumer_secret` to their respective values:
+
+```ruby
+require "mpesa-ruby"
+
+
+Mpesa.configure do |config|
+  config.consumer_key = 'mYcOnSuMeRk3Y'
+  config.consumer_secret = 'MyVery5ecureConsumerS3cr3t'
+end
+
+```
+
 
 ## Development
 
