@@ -25,8 +25,10 @@ module Mpesa
     # @api public
     attr_accessor :host
 
-    def initialize
-      @environment = 'sandbox'
+    def initialize(user_config = {})
+      self.environment = 'sandbox'
+      self.consumer_key = user_config[:consumer_key]
+      self.consumer_secret = user_config[:consumer_secret]
     end
 
     def host
