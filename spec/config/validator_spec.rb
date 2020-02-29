@@ -70,4 +70,28 @@ RSpec.describe Mpesa::Config::Validator do
       end
     end
   end
+
+  describe '.valid?' do
+    context 'with valid params' do
+      let(:config_params) do
+        { consumer_key: valid_key, consumer_secret: valid_secret }
+      end
+
+      it 'returns true' do
+        validator = described_class.new(config)
+        expect(validator.valid?).to be true
+      end
+    end
+
+    context 'with invalid params' do
+      let(:config_params) do
+        { consumer_key: nil, consumer_secret: valid_secret }
+      end
+
+      it 'returns false' do
+        validator = described_class.new(config)
+        expect(validator.valid?).to be false
+      end
+    end
+  end
 end

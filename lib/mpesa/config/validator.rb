@@ -35,6 +35,12 @@ module Mpesa
         return false if config.consumer_secret.empty?
         true
       end
+
+      def valid?
+        errors.clear
+        run_validations
+        errors.empty?
+      end
     end
   end
 end
