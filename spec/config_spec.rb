@@ -21,7 +21,6 @@ RSpec.describe Mpesa::Config do
 
   context 'environment is not specified' do
     it 'defaults to sandbox' do
-      # binding.pry
       expect(Mpesa.configuration.environment).to eq 'sandbox'
     end
 
@@ -55,6 +54,35 @@ RSpec.describe Mpesa::Config do
       it { expect(Mpesa.configuration.environment).to eq live_env }
       it 'sets host to the Mpesa Live API' do
         expect(Mpesa.configuration.host).to eq described_class::LIVE_API_BASE
+      end
+    end
+  end
+
+  context 'validation' do
+    context 'with valid params' do
+      let(:config) do
+        Mpesa.configure do |config|
+          config.consumer_key = 'mYcOnSuMeRk3Y'
+          config.consumer_secret = 'MyVery5ecureConsumerS3cr3t'
+        end
+      end
+
+      it 'returns true' do
+        expect(config.valid?).to be true
+        expect(config.errors).to eql({})
+      end
+    end
+
+    context 'with invalid params' do
+      let(:config) do
+        Mpesa.configure do |config|
+          config.consumer_key = 'mYcOnSuMeRk3Y'
+          config.consumer_secret = nil
+        end
+      end
+
+      it 'returns false' do
+        expect(config.valid?).to be false
       end
     end
   end

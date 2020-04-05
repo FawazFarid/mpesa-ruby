@@ -1,9 +1,14 @@
+require 'forwardable'
+require 'mpesa/config/validator'
+
 module Mpesa
   # Contains all the options that you can use to configure an Mpesa instance.
   #
   # @api public
   # @since v0.1.0
   class Config
+    extend Forwardable
+
     SANDBOX_API_BASE = 'https://sandbox.safaricom.co.ke'.freeze
 
     LIVE_API_BASE = 'https://api.safaricom.co.ke'.freeze
@@ -25,10 +30,13 @@ module Mpesa
     # @api public
     attr_accessor :host
 
+    def_delegators :@validator, :valid?, :errors
+
     def initialize(user_config = {})
-      self.environment = 'sandbox'
-      self.consumer_key = user_config[:consumer_key]
-      self.consumer_secret = user_config[:consumer_secret]
+      @environment = 'sandbox'
+      @consumer_key = user_config[:consumer_key]
+      @consumer_secret = user_config[:consumer_secret]
+      @validator = Config::Validator.new(self)
     end
 
     def host
