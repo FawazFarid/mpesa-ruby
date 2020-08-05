@@ -30,13 +30,16 @@ module Mpesa
     # @api public
     attr_accessor :host
 
-    def_delegators :@validator, :valid?, :errors
+    def_delegators :validator, :valid?, :errors
 
     def initialize(user_config = {})
       @environment = 'sandbox'
       @consumer_key = user_config[:consumer_key]
       @consumer_secret = user_config[:consumer_secret]
-      @validator = Config::Validator.new(self)
+    end
+
+    def validator
+      @validator ||= Config::Validator.new(self)
     end
 
     def host
