@@ -4,8 +4,7 @@ module Mpesa
     # A valid config is a config that guarantees that data can be sent to
     # M-PESA API given its configuration.
     class Validator
-      attr_reader :config
-      attr_reader :errors
+      attr_reader :config, :errors
 
       # @param [Mpesa::Config] config
       def initialize(config)
@@ -14,25 +13,23 @@ module Mpesa
       end
 
       def run_validations
-        unless valid_consumer_key?
-          errors[:consumer_key] = "consumer_key is required"
-        end
+        errors[:consumer_key] = 'consumer_key is required' unless valid_consumer_key?
 
-        unless valid_consumer_secret?
-          errors[:consumer_secret] = "consumer_secret is required"
-        end
+        errors[:consumer_secret] = 'consumer_secret is required' unless valid_consumer_secret?
         @config
       end
 
       def valid_consumer_key?
         return false unless config.consumer_key.is_a?(String)
         return false if config.consumer_key.empty?
+
         true
       end
 
       def valid_consumer_secret?
         return false unless config.consumer_secret.is_a?(String)
         return false if config.consumer_secret.empty?
+
         true
       end
 
