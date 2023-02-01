@@ -1,4 +1,6 @@
 require 'mpesa/api_operations'
 require 'mpesa/config'
 require 'mpesa/oauth'
+require 'mpesa/response'
+require 'mpesa/response/stk_push_response'
 require 'mpesa/version'
