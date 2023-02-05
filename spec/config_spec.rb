@@ -58,6 +58,29 @@ RSpec.describe Mpesa::Config do
     end
   end
 
+  context 'when passkey is configured' do
+    it 'returns configured value' do
+      passkey = 'MyVery5ecurePasskey'
+      Mpesa.configure { |config| config.passkey = passkey }
+      expect(Mpesa.configuration.passkey).to eq passkey
+    end
+  end
+
+  context 'when passkey is not configured' do
+    context 'when environment is set to sandbox' do
+      it 'returns the sandbox passkey' do
+        expect(Mpesa.configuration.passkey).to eq described_class::SANDBOX_PASSKEY
+      end
+    end
+
+    context 'when environment is set to live' do
+      it 'returns nil' do
+        Mpesa.configure { |config| config.environment = 'live' }
+        expect(Mpesa.configuration.passkey).to be_nil
+      end
+    end
+  end
+
   context 'validation' do
     context 'with valid params' do
       let(:config) do

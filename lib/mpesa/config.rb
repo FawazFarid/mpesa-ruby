@@ -13,6 +13,8 @@ module Mpesa
 
     LIVE_API_BASE = 'https://api.safaricom.co.ke/'.freeze
 
+    SANDBOX_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'.freeze
+
     # @return [String] your app's client key. This value *must* be set.
     # @api public
     attr_accessor :consumer_key
@@ -30,12 +32,18 @@ module Mpesa
     # @api public
     attr_accessor :host
 
+    # @return [String] the passkey, which is used together Business Shortcode and Timestamp
+    # to generate the password for the STK Push request
+    # @api public
+    attr_accessor :passkey
+
     def_delegators :validator, :valid?, :errors
 
     def initialize(user_config = {})
       @environment = 'sandbox'
       @consumer_key = user_config[:consumer_key]
       @consumer_secret = user_config[:consumer_secret]
+      @passkey = user_config[:passkey]
     end
 
     def validator
@@ -46,6 +54,12 @@ module Mpesa
       @host ||= begin
         @environment == 'live' ? LIVE_API_BASE : SANDBOX_API_BASE
       end
+    end
+
+    def passkey
+      return SANDBOX_PASSKEY if @environment == 'sandbox' && @passkey.nil?
+
+      @passkey
     end
   end
 
