@@ -35,10 +35,41 @@ require "mpesa-ruby"
 Mpesa.configure do |config|
   config.consumer_key = 'mYcOnSuMeRk3Y'
   config.consumer_secret = 'MyVery5ecureConsumerS3cr3t'
+
+  # Optional
+  config.environment = :live # Defaults to :sandbox
+
+  # STK Push configurations
+  config.passkey = 'MyVeryS3cr3tP@ssk3y' # Required for STK Push live environment, defaults to the sandbox passkey for sandbox environment
 end
 
-```
+# Make STK Push Request (Paybill)
+Mpesa.stk_push({
+  business_short_code: 174379,
+  transaction_type: Mpesa::CUSTOMER_PAYBILL_ONLINE,
+  amount: 1,
+  party_a: 254708374149,
+  party_b: 174379,
+  phone_number: 254708374149,
+  callback_url: "https://mydomain.com/path",
+  account_reference: "CompanyXLTD",
+  transaction_desc: "Payment of X"
+})
 
+# Make STK Push Request (Buy Goods and Services)
+Mpesa.stk_push({
+  business_short_code: 174379,
+  transaction_type: Mpesa::CUSTOMER_BUY_GOODS_ONLINE,
+  amount: 1,
+  party_a: 254708374149,
+  party_b: 174379,
+  phone_number: 254708374149,
+  callback_url: "https://mydomain.com/path",
+  account_reference: "CompanyXLTD",
+  transaction_desc: "Payment of X"
+})
+
+```
 
 ## Development
 
