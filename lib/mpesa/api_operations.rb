@@ -1,3 +1,6 @@
+require 'net/http'
+require 'openssl'
+
 module Mpesa
   # Some common HTTP functionality
   module APIOperations
@@ -8,12 +11,11 @@ module Mpesa
       http
     end
 
-    def build_request(method, uri)
-      headers = { 'Accept': 'application/json' }
+    def build_request(method, uri, headers = {})
       if method == :get
-        Net::HTTP::Get.new(uri.request_uri, headers)
+        ::Net::HTTP::Get.new(uri.request_uri, headers)
       else
-        Net::HTTP::Post.new(uri.request_uri, headers)
+        ::Net::HTTP::Post.new(uri.request_uri, headers)
       end
     end
   end

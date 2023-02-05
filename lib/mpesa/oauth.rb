@@ -1,4 +1,4 @@
-require 'openssl'
+require 'json'
 
 module Mpesa
   # OAuth executes requests against the M-PESA API authentication endpoints and
@@ -6,7 +6,7 @@ module Mpesa
   class OAuth
     extend APIOperations
 
-    GENERATE_TOKEN_URL = '/oauth/v1/generate'.freeze
+    GENERATE_TOKEN_URL = 'oauth/v1/generate'.freeze
     GRANT_TYPE_CLIENT_CREDENTIALS = 'client_credentials'.freeze
 
     def self.token
@@ -15,7 +15,8 @@ module Mpesa
       url_string << "?grant_type=#{GRANT_TYPE_CLIENT_CREDENTIALS}"
       uri = URI(url_string)
 
-      request = build_request(:get, uri)
+      headers = { 'Accept': 'application/json' }
+      request = build_request(:get, uri, headers)
       request.basic_auth(config.consumer_key, config.consumer_secret)
 
       # Send the request

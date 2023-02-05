@@ -9,9 +9,9 @@ module Mpesa
   class Config
     extend Forwardable
 
-    SANDBOX_API_BASE = 'https://sandbox.safaricom.co.ke'.freeze
+    SANDBOX_API_BASE = 'https://sandbox.safaricom.co.ke/'.freeze
 
-    LIVE_API_BASE = 'https://api.safaricom.co.ke'.freeze
+    LIVE_API_BASE = 'https://api.safaricom.co.ke/'.freeze
 
     # @return [String] your app's client key. This value *must* be set.
     # @api public
