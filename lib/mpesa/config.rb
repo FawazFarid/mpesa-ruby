@@ -64,29 +64,4 @@ module Mpesa
       @passkey
     end
   end
-
-  class << self
-    # @return [Mpesa::Config] Mpesa's current configuration
-    def configuration
-      @configuration ||= Config.new
-    end
-
-    # Set Config's configuration
-    # @param config [Mpesa::Config]
-    def configuration=(config)
-      @configuration = config
-    end
-
-    # Modify Mpesa's current configuration
-    # @yieldparam [Mpesa::Config] config current Mpesa config
-    # ```
-    # Mpesa.configure do |config|
-    #   config.environment = live
-    # end
-    # ```
-    def configure
-      yield configuration
-      configuration
-    end
-  end
 end
