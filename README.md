@@ -1,5 +1,7 @@
 # Mpesa
 
+> ⚠️ This gem is under development and still at early stages. 
+
 The Mpesa Ruby library provides access to the various APIs
 (https://developer.safaricom.co.ke/apis-explorer) M-PESA offers
 for developers working on applications written in Ruby.
