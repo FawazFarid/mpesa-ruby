@@ -41,5 +41,11 @@ module Mpesa
       stk_pusher.perform(params)
     end
     alias lipa_na_mpesa stk_push
+
+    # @param params [Hash] params to be passed to the API
+    # @return [Mpesa::Response] response from the API
+    def b2c(params = {})
+      B2C.new.perform(params)
+    end
   end
 end
